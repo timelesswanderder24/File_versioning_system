@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+
+#Name: Imashi Kinigama
+#UPI: ikin507
+
+from versionfs import VersionFS
+import sys
+import os
+import shutil
+
+
+def main():
+    root = os.path.join(os.getcwd(), '.versiondir')
+    shutil.rmtree(root, ignore_errors=True)
+    os.system('fusermount -u mount')
+    if(os.path.exists(root)):
+        shutil.rmtree(root, ignore_errors=True)
+
+if __name__ == "__main__":
+    main()

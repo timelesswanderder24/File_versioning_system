@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+
+#Name: Imashi Kinigama
+#UPI: ikin507
+
+from versionfs import VersionFS
+import sys
+import os
+
+
+def main(fileName):
+    root = os.path.join(os.getcwd(), '.versiondir')
+    fileName = fileName+'.'
+    for file_name in os.listdir(root):
+        if(fileName in file_name and (fileName+'swp' not in file_name)):
+            print(file_name)
+
+if __name__ == "__main__":
+    main(sys.argv[1])
+
+
+

@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+
+#Name: Imashi Kinigama
+#UPI: ikin507
+
+from versionfs import VersionFS
+import sys
+import os
+import shutil
+
+
+def main(fileName):
+    root = os.path.join(os.getcwd(), '.versiondir')
+    if fileName.startswith("/"):
+        fileName = fileName[1:] 
+    updated_fileName = fileName+'.'
+    latest_version = 0
+    path = fileName+'.'
+    for char_seq in os.listdir(root):
+        if((path in char_seq) and ('.swp' not in char_seq)):
+            last_version = int(char_seq[(len(char_seq)-1):])
+            if(last_version>latest_version):
+                latest_version = last_version
+    for i in range(2, latest_version+1):
+        old_path = os.path.join(root, path+str(i))
+        os.unlink(old_path)
+
+if __name__ == "__main__":
+    main(sys.argv[1])

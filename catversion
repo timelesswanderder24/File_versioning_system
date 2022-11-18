@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+
+#Name: Imashi Kinigama
+#UPI: ikin507
+
+from versionfs import VersionFS
+import sys
+import os
+import shutil
+
+
+def main(fileName, versionNum):
+    root = os.path.join(os.getcwd(), '.versiondir')
+    if fileName.startswith("/"):
+        fileName = fileName[1:] 
+    updated_fileName = fileName+'.'+versionNum
+    path = os.path.join(root, updated_fileName)
+    with open(path, 'r') as f:
+    	print(f.read())
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
+

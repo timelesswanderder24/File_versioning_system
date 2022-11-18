@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+
+#Name: Imashi Kinigama
+#UPI: ikin507
+
+from versionfs import VersionFS
+import sys
+import os
+import shutil
+
+
+def main(fileName, versionNum):
+    root = os.path.join(os.getcwd(), '.versiondir')
+    if fileName.startswith("/"):
+        fileName = fileName[1:] 
+    updated_fileName = fileName+'.'+versionNum
+    old_file_path = os.path.join(root, updated_fileName)
+    new_file_path = os.path.join(root, fileName)
+    shutil.copyfile(old_file_path, new_file_path)
+    latest_version = 0
+    path = fileName+'.'
+    for char_seq in os.listdir(root):
+        if((path in char_seq) and ('.swp' not in char_seq)):
+            last_version = int(char_seq[(len(char_seq)-1):])
+            if(last_version>latest_version):
+                latest_version = last_version
+    if(latest_version>=6):
+        os.unlink(os.path.join(root, path+str(6)))
+        latest_version = 5
+    for i in range(latest_version,0,-1):
+        old_path = os.path.join(root, path+str(i))
+        new_path = os.path.join(root, path+str(i+1))
+        shutil.copyfile(old_path, new_path)
+    if(latest_version==0):
+        print('There are no versions of the file given')
+    file_name = path+str(1)
+    shutil.copyfile(new_file_path, os.path.join(root,file_name))
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
+
